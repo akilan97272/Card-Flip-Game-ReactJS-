@@ -158,18 +158,172 @@ Separating data from logic makes the project **easier to scale and modify**.
 
 # 🧠 React Concepts Practiced
 
-This project helped me practice:
+While building this project, I practiced several core React concepts that are essential for developing modern frontend applications.
 
-* React Functional Components
-* `useState`
-* `useEffect`
-* Props and component communication
-* Event handling
-* Conditional rendering
-* Array mapping
-* Immutable state updates
+---
 
-These are fundamental concepts required to build **real-world React applications**.
+## Functional Components
+
+React applications are built using **components**, which are reusable pieces of UI.
+
+In this project, components like:
+
+```text
+Card
+GameHeader
+App
+```
+
+are implemented as **functional components**.
+
+Functional components are JavaScript functions that return JSX and are the most common way of writing React components today.
+
+Example:
+
+```jsx
+function Card() {
+  return <div>Card</div>;
+}
+```
+
+---
+
+## useState
+
+`useState` is a React **hook** used to store and manage state inside functional components.
+
+State allows components to remember values and update the UI when those values change.
+
+In this project, `useState` is used to manage:
+
+* cards
+* flipped cards
+* player moves
+* score
+* game completion
+
+Example:
+
+```js
+const [score, setScore] = useState(0);
+```
+
+Whenever `setScore()` is called, React automatically **re-renders the component**.
+
+---
+
+## useEffect
+
+`useEffect` is a hook used to run **side effects** in a component.
+
+Side effects include things like:
+
+* fetching data
+* starting a game
+* timers
+* updating external systems
+
+In this project, `useEffect` is used to **initialize the game when the app loads**.
+
+Example:
+
+```js
+useEffect(() => {
+  startGame();
+}, []);
+```
+
+The empty dependency array (`[]`) ensures that the function runs **only once when the component mounts**.
+
+---
+
+## Props and Component Communication
+
+**Props** (short for properties) allow data to be passed from a parent component to a child component.
+
+For example:
+
+```jsx
+<Card card={card} handleClick={handleClick} />
+```
+
+Here:
+
+* `card` contains the card data
+* `handleClick` is a function passed to the child component
+
+Props make components **dynamic and reusable**.
+
+---
+
+## Event Handling
+
+React allows handling user interactions such as clicks, typing, or hovering.
+
+In this project, event handling is used to detect when a player clicks a card.
+
+Example:
+
+```jsx
+onClick={() => handleClick(card)}
+```
+
+This triggers the game logic that flips the card.
+
+---
+
+## Conditional Rendering
+
+Conditional rendering allows React to **display different UI elements depending on state**.
+
+In the card component, the card shows either:
+
+* the emoji (when flipped or matched)
+* a question icon (when hidden)
+
+Example:
+
+```jsx
+{card.isFlipped ? card.value : <BadgeQuestionMark />}
+```
+
+This makes the UI **dynamic and interactive**.
+
+---
+
+## Array Mapping
+
+React often uses `.map()` to render lists of components dynamically.
+
+In this project, `.map()` is used to render all cards in the grid.
+
+Example:
+
+```jsx
+cards.map((card) => (
+  <Card key={card.id} card={card} handleClick={handleClick} />
+))
+```
+
+This allows React to create multiple card components from the card data.
+
+---
+
+## Immutable State Updates
+
+In React, state should **never be modified directly**.
+
+Instead, we create a **new copy of the state** and update it.
+
+Example:
+
+```js
+const updatedCards = cards.map((c) =>
+  c.id === card.id ? { ...c, isFlipped: true } : c
+);
+```
+
+This ensures React can properly detect changes and update the UI efficiently.
 
 ---
 
