@@ -101,44 +101,34 @@ function App() {
   };
 
   return (
-    <div className="bg-gray-800 min-h-screen text-white flex-row items-center justify-center">
-
-      <GameHeader
-        score={score}
-        moves={moves}
-        reset={startGame}
-      />
-
-      <div className="card-grid">
-
-        {cards.map((card) => (
-          <Card
-            key={card.id}
-            card={card}
-            handleClick={handleClick}
-          />
-        ))}
-
-      </div>
-
-      {gameWon && (
-        <div className="modal-overlay">
-          <div className="modal">
-
-            <h2>🎉 Congratulations!</h2>
-            <p>You completed the game!</p>
-            <p>Total Moves: {moves}</p>
-
-            <button onClick={startGame}>
-              Play Again
-            </button>
-
+    <div className="bg-slate-900 min-h-screen text-white flex flex-col items-center justify-center p-4">
+          
+          <GameHeader score={score} moves={moves} reset={startGame} />
+    
+          <div className="grid grid-cols-4 gap-4 p-4 bg-slate-800/30 rounded-3xl border border-slate-700/50 shadow-2xl">
+            {cards.map((card) => (
+              <Card key={card.id} card={card} handleClick={handleClick} />
+            ))}
           </div>
+    
+          {gameWon && (
+            <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center z-50 animate-in fade-in duration-300">
+              <div className="bg-slate-800 p-10 rounded-3xl border border-blue-500/30 text-center shadow-[0_0_50px_-12px_rgba(59,130,246,0.5)]">
+                <h2 className="text-5xl mb-2">🎉</h2>
+                <h2 className="text-3xl font-bold mb-2">Victory!</h2>
+                <p className="text-slate-400 mb-6">You cleared the board in <span className="text-white font-bold">{moves}</span> moves.</p>
+    
+                <button 
+                  onClick={startGame}
+                  className="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 rounded-xl font-bold transition-all transform hover:scale-105"
+                >
+                  Play Again
+                </button>
+              </div>
+            </div>
+          )}
         </div>
-      )}
-
-    </div>
-  );
+      );
 }
 
 export default App;
